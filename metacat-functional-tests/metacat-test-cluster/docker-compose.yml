@@ -46,31 +46,31 @@ services:
                 -Xmx768m
                 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
                 -noverify
-                -Dnetflix.environment=test
-                -Dlogging.level.org.springframework.web=INFO
                 -Dlogging.level.org.hibernate=INFO
-                -Dnetflix.discovery.registration.enabled=false
-                -Dnetflix.appinfo.validateInstanceId=false
-                -Dnetflix.appinfo.vipAddress=
-                -Dnetflix.appinfo.metadata.route53NamePrefix=
-                -Dnetflix.appinfo.metadata.enableRoute53=false
-                -Dmetacat.plugin.config.location=/etc/metacat/catalog
-                -Dmetacat.metrics.default-registry.enabled=true
-                -Dmetacat.mysqlmetadataservice.enabled=true
-                -Dmetacat.type.converter=com.netflix.metacat.connector.pig.converters.PigTypeConverter
-                -Dmetacat.definition.metadata.delete.enableForTable=false
-                -Dmetacat.definition.metadata.delete.enableDeleteForQualifiedNames=hive-metastore/hsmoke_ddb,hive-metastore/hsmoke_ddb1/test_create_table1,embedded-hive-metastore,embedded-fast-hive-metastore/fsmoke_db1,embedded-fast-hive-metastore/fsmoke_ddb1,embedded-fast-hive-metastore/shard,embedded-fast-hive-metastore/fsmoke_db4,s3-mysql-db,mysql-56-db
-                -Dmetacat.hive.metastore.batchSize=10
-                -Dmetacat.hive.iceberg.enabled=true
-                -Dmetacat.usermetadata.config.location=/etc/metacat/usermetadata.properties
-                -Dmetacat.cache.enabled=true
-                -Dmetacat.authorization.enabled=true
+                -Dlogging.level.org.springframework.web=INFO
                 -Dmetacat.authorization.createAcl.createAclStr=embedded-fast-hive-metastore/fsmoke_acl:metacat-prod
                 -Dmetacat.authorization.deleteAcl.deleteAclStr=embedded-fast-hive-metastore/fsmoke_acl:metacat-prod
+                -Dmetacat.authorization.enabled=true
+                -Dmetacat.cache.enabled=true
+                -Dmetacat.definition.metadata.delete.enableDeleteForQualifiedNames=hive-metastore/hsmoke_ddb,hive-metastore/hsmoke_ddb1/test_create_table1,embedded-hive-metastore,embedded-fast-hive-metastore/fsmoke_db1,embedded-fast-hive-metastore/fsmoke_ddb1,embedded-fast-hive-metastore/shard,embedded-fast-hive-metastore/fsmoke_db4,s3-mysql-db,mysql-56-db
+                -Dmetacat.definition.metadata.delete.enableForTable=false
+                -Dmetacat.hive.iceberg.enabled=true
+                -Dmetacat.hive.metastore.batchSize=10
+                -Dmetacat.metrics.default-registry.enabled=true
+                -Dmetacat.mysqlmetadataservice.enabled=true
+                -Dmetacat.plugin.config.location=/etc/metacat/catalog
                 -Dmetacat.service.tables.error.list.partitions.threshold=100
                 -Dmetacat.table.delete.noDeleteOnTags=do_not_drop,iceberg_migration_do_not_modify
                 -Dmetacat.table.rename.noRenameOnTags=do_not_rename,iceberg_migration_do_not_modify
                 -Dmetacat.table.update.noUpdateOnTags=iceberg_migration_do_not_modify
+                -Dmetacat.type.converter=com.netflix.metacat.connector.pig.converters.PigTypeConverter
+                -Dmetacat.usermetadata.config.location=/etc/metacat/usermetadata.properties
+                -Dnetflix.appinfo.metadata.enableRoute53=false
+                -Dnetflix.appinfo.metadata.route53NamePrefix=
+                -Dnetflix.appinfo.validateInstanceId=false
+                -Dnetflix.appinfo.vipAddress=
+                -Dnetflix.discovery.registration.enabled=false
+                -Dnetflix.environment=test
                 -Dmetacat.event.updateIcebergTablePostEventEnabled=true'
         labels:
           - "com.netflix.metacat.oss.test"

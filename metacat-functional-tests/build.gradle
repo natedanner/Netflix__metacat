@@ -99,7 +99,7 @@ task stopMetacatCluster(type: Exec) {
 }
 
 task metacatPorts {
-    dependsOn 'startMetacatCluster'
+    //dependsOn 'startMetacatCluster'
     ext.http_port = null
     ext.metacat_http_debug_port = null
     ext.metacat_hive_thrift_port = null
@@ -119,13 +119,13 @@ task metacatPorts {
             }
         }
 
-        ext.http_port = get_docker_port('com.netflix.metacat.oss.test.war', 8080)
-        ext.metacat_http_debug_port = get_docker_port('com.netflix.metacat.oss.test.war', 8000)
-        ext.metacat_hive_thrift_port = get_docker_port('com.netflix.metacat.oss.test.war', 12001)
-        ext.metacat_embedded_hive_thrift_port = get_docker_port('com.netflix.metacat.oss.test.war', 12003)
-        ext.metacat_embedded_fast_hive_thrift_port = get_docker_port('com.netflix.metacat.oss.test.war', 12004)
-        ext.hive_thrift_port = get_docker_port('com.netflix.metacat.oss.test.hive', 9083)
-        ext.hive_debug_port = get_docker_port('com.netflix.metacat.oss.test.hive', 8005)
+        ext.http_port = get_docker_port('com.netflix.metacat.test.war', 7001)
+        ext.metacat_http_debug_port = get_docker_port('com.netflix.metacat.test.war', 8000)
+        ext.metacat_hive_thrift_port = get_docker_port('com.netflix.metacat.test.war', 12001)
+        ext.metacat_embedded_hive_thrift_port = get_docker_port('com.netflix.metacat.test.war', 12003)
+        ext.metacat_embedded_fast_hive_thrift_port = get_docker_port('com.netflix.metacat.test.war', 12004)
+        ext.hive_thrift_port = get_docker_port('com.netflix.metacat.test.hive', 9083)
+        ext.hive_debug_port = get_docker_port('com.netflix.metacat.test.hive', 8005)
 
         println '++ Container Exposed ports ++'
         println '+++ Metacat Web Port: [' + ext.http_port + ']'
@@ -160,8 +160,7 @@ functionalTest {
         showStandardStreams = true
     }
 
-    dependsOn 'expandWar', 'startMetacatCluster', 'metacatPorts'
-    finalizedBy 'stopMetacatCluster'
+    dependsOn 'metacatPorts'
 }
 
 clean {

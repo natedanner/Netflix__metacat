@@ -95,8 +95,8 @@ functionalTest {
     if (project.ext.runDockerContainers) {
         useJUnitPlatform {
         }
-        dependsOn 'startCrdbCluster'
-        finalizedBy 'stopCrdbCluster'
+        //dependsOn 'startCrdbCluster'
+        //finalizedBy 'stopCrdbCluster'
     }
 }
 
