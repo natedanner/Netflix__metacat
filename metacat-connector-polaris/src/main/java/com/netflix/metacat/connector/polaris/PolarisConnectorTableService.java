@@ -186,7 +186,7 @@ public class PolarisConnectorTableService implements ConnectorTableService {
     ) {
         try {
             final List<QualifiedName> qualifiedNames = Lists.newArrayList();
-            final String tableFilter = (prefix != null && prefix.isTableDefinition()) ? prefix.getTableName() : "";
+            final String tableFilter = prefix != null && prefix.isTableDefinition() ? prefix.getTableName() : "";
             for (String tableName : polarisStoreService.getTables(name.getDatabaseName(),
                 tableFilter,
                 connectorContext.getConfig().getListTableNamesPageSize())
@@ -339,7 +339,7 @@ public class PolarisConnectorTableService implements ConnectorTableService {
         @Nullable final Pageable pageable
     ) {
         try {
-            final String tableFilter = (prefix != null && prefix.isTableDefinition()) ? prefix.getTableName() : "";
+            final String tableFilter = prefix != null && prefix.isTableDefinition() ? prefix.getTableName() : "";
             final List<PolarisTableEntity> tbls =
                 polarisStoreService.getTableEntities(name.getDatabaseName(),
                     tableFilter,
@@ -348,7 +348,7 @@ public class PolarisConnectorTableService implements ConnectorTableService {
                 ConnectorUtils.sort(tbls, sort, Comparator.comparing(t -> t.getTblName()));
             }
             return ConnectorUtils.paginate(tbls, pageable).stream()
-                .map(t -> polarisTableMapper.toInfo(t)).collect(Collectors.toList());
+                .map(polarisTableMapper::toInfo).collect(Collectors.toList());
         } catch (Exception exception) {
             final String msg = String.format("Failed polaris list tables %s using prefix %s", name, prefix);
             log.error(msg, exception);

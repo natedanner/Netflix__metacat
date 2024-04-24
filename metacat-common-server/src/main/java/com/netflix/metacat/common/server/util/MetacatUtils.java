@@ -28,7 +28,7 @@ import java.util.Set;
 /**
  * General metacat utility methods.
  */
-public class MetacatUtils {
+public final class MetacatUtils {
 
     public static final String ICEBERG_MIGRATION_DO_NOT_MODIFY_TAG = "iceberg_migration_do_not_modify";
     public static final String NAME_TAGS = "tags";

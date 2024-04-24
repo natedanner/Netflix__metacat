@@ -124,14 +124,16 @@ public class ParseException extends Exception {
     String retval = "Encountered \"";
     Token tok = currentToken.next;
     for (int i = 0; i < maxSize; i++) {
-      if (i != 0) retval += " ";
+        if (i != 0) {
+            retval += " ";
+        }
       if (tok.kind == 0) {
         retval += tokenImage[0];
         break;
       }
       retval += " " + tokenImage[tok.kind];
       retval += " \"";
-      retval += add_escapes(tok.image);
+      retval += addEscapes(tok.image);
       retval += " \"";
       tok = tok.next;
     }
@@ -159,7 +161,7 @@ public class ParseException extends Exception {
    * when these raw version cannot be used as part of an ASCII
    * string literal.
    */
-  static String add_escapes(String str) {
+  static String addEscapes(String str) {
       StringBuffer retval = new StringBuffer();
       char ch;
       for (int i = 0; i < str.length(); i++) {

@@ -468,7 +468,7 @@ public class MySqlTagService implements TagService {
                                           final QualifiedName.Type type,
                                           final Set<String> tags) {
         final List<SqlParameterValue> sqlParams = Lists.newArrayList();
-        sqlParams.add(new SqlParameterValue(Types.INTEGER, tags.size() == 0 ? 1 : 0));
+        sqlParams.add(new SqlParameterValue(Types.INTEGER, tags.isEmpty() ? 1 : 0));
         final String query = String.format(QUERY_LIST,
             buildParametrizedInClause(tags, sqlParams, sqlParams.size()));
         sqlParams.addAll(Stream.of(

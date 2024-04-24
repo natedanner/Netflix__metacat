@@ -95,7 +95,7 @@ public class MetadataService {
                 final List<String> urisToDelete =
                     userMetadataService.getDeletedDataMetadataUris(priorTo.toDate(), 0, limit);
                 log.info("Count of deleted marked data metadata: {}", urisToDelete.size());
-                if (urisToDelete.size() > 0) {
+                if (!urisToDelete.isEmpty()) {
                     final List<String> uris = urisToDelete.parallelStream().filter(uri -> !uri.contains("="))
                         .map(userMetadataService::getDescendantDataUris)
                         .flatMap(Collection::stream).collect(Collectors.toList());
@@ -118,7 +118,7 @@ public class MetadataService {
                                 }));
                         final List<String> canDeleteMetadataForUris = subUris.parallelStream()
                             .filter(s -> !Strings.isNullOrEmpty(s))
-                            .filter(s -> uriQualifiedNames.get(s) == null || uriQualifiedNames.get(s).size() == 0)
+                            .filter(s -> uriQualifiedNames.get(s) == null || uriQualifiedNames.get(s).isEmpty())
                             .collect(Collectors.toList());
                         log.info("Start deleting data metadata: {}", canDeleteMetadataForUris.size());
                         userMetadataService.deleteDataMetadata(canDeleteMetadataForUris);

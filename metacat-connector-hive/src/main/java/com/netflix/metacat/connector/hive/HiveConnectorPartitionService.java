@@ -449,7 +449,7 @@ public class HiveConnectorPartitionService implements ConnectorPartitionService 
      * @return partition keys
      */
     protected List<String> getPartitionKeys(final List<FieldSchema> fields) {
-        return (fields != null) ? fields.stream().map(FieldSchema::getName).collect(Collectors.toList())
+        return fields != null ? fields.stream().map(FieldSchema::getName).collect(Collectors.toList())
             : Lists.newArrayList();
     }
 

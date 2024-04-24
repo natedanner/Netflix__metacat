@@ -124,9 +124,9 @@ public enum Metrics {
 
     TagEventsType("metacat.events.type");
 
-    public final static Map<String, String> tagStatusSuccessMap
+    public static final Map<String, String> tagStatusSuccessMap
         = ImmutableMap.of("status", "success");
-    public final static Map<String, String> tagStatusFailureMap
+    public static final Map<String, String> tagStatusFailureMap
         = ImmutableMap.of("status", "failure");
 
 

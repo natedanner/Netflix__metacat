@@ -136,10 +136,9 @@ public class ConnectorManager {
                 Preconditions.checkState(!catalogs.contains(catalogName, EMPTY_STRING),
                     "A catalog with name %s already exists", catalogName);
             } else {
-                databaseNames.forEach(databaseName -> {
+                databaseNames.forEach(databaseName ->
                     Preconditions.checkState(!catalogs.contains(catalogName, databaseName),
-                        "A catalog with name %s for database %s already exists", catalogName, databaseName);
-                });
+                        "A catalog with name %s for database %s already exists", catalogName, databaseName));
             }
 
             catalogConfigs.add(catalogConfig);
@@ -169,9 +168,8 @@ public class ConnectorManager {
             if (databaseNames.isEmpty()) {
                 catalogs.put(catalogName, EMPTY_STRING, catalogHolder);
             } else {
-                databaseNames.forEach(databaseName -> {
-                    catalogs.put(catalogName, databaseName, catalogHolder);
-                });
+                databaseNames.forEach(databaseName ->
+                    catalogs.put(catalogName, databaseName, catalogHolder));
             }
         } else {
             log.warn("No plugin for connector with type {}", connectorType);

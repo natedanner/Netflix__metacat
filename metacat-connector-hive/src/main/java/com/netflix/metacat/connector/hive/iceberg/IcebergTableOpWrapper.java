@@ -72,7 +72,7 @@ public class IcebergTableOpWrapper {
         // Cancel the iceberg call if it times out.
         //
         final Future<Map<String, ScanSummary.PartitionMetrics>> future = threadServiceManager.getExecutor()
-            .submit(() -> (filter != null) ? ScanSummary.of(icebergTable.newScan().filter(filter))
+            .submit(() -> filter != null ? ScanSummary.of(icebergTable.newScan().filter(filter))
             .limit(config.getMaxPartitionsThreshold())
             .throwIfLimited()
             .build()

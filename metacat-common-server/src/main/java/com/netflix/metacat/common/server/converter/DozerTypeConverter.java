@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
  * @since 1.0.0
  */
 public class DozerTypeConverter extends DozerConverter<Type, String> {
-    private TypeConverterFactory typeConverterFactory;
+    private final TypeConverterFactory typeConverterFactory;
 
     /**
      * Constructor.

@@ -39,24 +39,24 @@ public final class TimeUtil {
      */
     public static TimeUnit unitFor(final String inputUnit, final TimeUnit defaultUnit) {
         final String unit = inputUnit.trim().toLowerCase();
-        if (unit.isEmpty() || unit.equals("l")) {
+        if (unit.isEmpty() || "l".equals(unit)) {
             if (defaultUnit == null) {
                 throw new IllegalArgumentException("Time unit is not specified");
             }
             return defaultUnit;
-        } else if (unit.equals("d") || unit.startsWith("day")) {
+        } else if ("d".equals(unit) || unit.startsWith("day")) {
             return TimeUnit.DAYS;
-        } else if (unit.equals("h") || unit.startsWith("hour")) {
+        } else if ("h".equals(unit) || unit.startsWith("hour")) {
             return TimeUnit.HOURS;
-        } else if (unit.equals("m") || unit.startsWith("min")) {
+        } else if ("m".equals(unit) || unit.startsWith("min")) {
             return TimeUnit.MINUTES;
-        } else if (unit.equals("s") || unit.startsWith("sec")) {
+        } else if ("s".equals(unit) || unit.startsWith("sec")) {
             return TimeUnit.SECONDS;
-        } else if (unit.equals("ms") || unit.startsWith("msec")) {
+        } else if ("ms".equals(unit) || unit.startsWith("msec")) {
             return TimeUnit.MILLISECONDS;
-        } else if (unit.equals("us") || unit.startsWith("usec")) {
+        } else if ("us".equals(unit) || unit.startsWith("usec")) {
             return TimeUnit.MICROSECONDS;
-        } else if (unit.equals("ns") || unit.startsWith("nsec")) {
+        } else if ("ns".equals(unit) || unit.startsWith("nsec")) {
             return TimeUnit.NANOSECONDS;
         }
         throw new IllegalArgumentException("Invalid time unit " + unit);

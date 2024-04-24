@@ -15,16 +15,16 @@
 package com.netflix.metacat.common.server.partition.parser;
 
 public class JJTPartitionParserState {
-  private java.util.List<Node> nodes;
-  private java.util.List<Integer> marks;
+    private final java.util.List<Node> nodes;
+    private final java.util.List<Integer> marks;
 
   private int sp;        // number of nodes on stack
   private int mk;        // current mark
-  private boolean node_created;
+  private boolean nodeCreated;
 
   public JJTPartitionParserState() {
-    nodes = new java.util.ArrayList<Node>();
-    marks = new java.util.ArrayList<Integer>();
+    nodes = new java.util.ArrayList<>();
+    marks = new java.util.ArrayList<>();
     sp = 0;
     mk = 0;
   }
@@ -33,7 +33,7 @@ public class JJTPartitionParserState {
      pushed.  This should only be called in the final user action of a
      node scope.  */
   public boolean nodeCreated() {
-    return node_created;
+    return nodeCreated;
   }
 
   /* Call this to reinitialize the node stack.  It is called
@@ -106,7 +106,7 @@ public class JJTPartitionParserState {
     }
     n.jjtClose();
     pushNode(n);
-    node_created = true;
+    nodeCreated = true;
   }
 
 
@@ -126,10 +126,10 @@ public class JJTPartitionParserState {
       }
       n.jjtClose();
       pushNode(n);
-      node_created = true;
+      nodeCreated = true;
     } else {
       mk = marks.remove(marks.size()-1);
-      node_created = false;
+      nodeCreated = false;
     }
   }
 }

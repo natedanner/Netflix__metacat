@@ -164,7 +164,7 @@ public class HiveConvertersImpl implements HiveConverters {
 
         Map<String, String> metadata = dto.getMetadata();
         if (metadata == null) {
-            metadata = Collections.EMPTY_MAP;
+            metadata = Collections.emptyMap();
         }
         database.setParameters(metadata);
 

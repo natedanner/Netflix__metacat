@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
  * @author amajumdar
  */
 public class DozerJsonTypeConverter implements CustomConverter {
-    private TypeConverterFactory typeConverterFactory;
+    private final TypeConverterFactory typeConverterFactory;
 
     /**
      * Constructor.

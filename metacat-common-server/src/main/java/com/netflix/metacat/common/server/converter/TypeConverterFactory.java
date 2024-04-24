@@ -32,8 +32,8 @@ import java.util.Map;
  */
 public class TypeConverterFactory {
     private static final String METACAT_TYPE_CONTEXT = "metacat";
-    private Map<String, ConnectorTypeConverter> registry = Maps.newHashMap();
-    private ConnectorTypeConverter defaultTypeConverter;
+    private final Map<String, ConnectorTypeConverter> registry = Maps.newHashMap();
+    private final ConnectorTypeConverter defaultTypeConverter;
 
     /**
      * Constructor.

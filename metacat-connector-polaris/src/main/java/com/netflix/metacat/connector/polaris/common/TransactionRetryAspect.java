@@ -50,7 +50,7 @@ public class TransactionRetryAspect implements Ordered {
     }
 
     private Object retryOnError(final ProceedingJoinPoint pjp) throws Exception {
-        return retryTemplate.<Object, Exception>execute(context -> {
+        return retryTemplate.execute(context -> {
             try {
                 return pjp.proceed();
             } catch (Throwable t) {

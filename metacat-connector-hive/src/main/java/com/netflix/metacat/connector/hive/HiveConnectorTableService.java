@@ -351,7 +351,7 @@ public class HiveConnectorTableService implements ConnectorTableService {
         try {
             final List<QualifiedName> qualifiedNames = Lists.newArrayList();
 
-            final String tableFilter = (prefix != null && prefix.isTableDefinition()) ? prefix.getTableName() : null;
+            final String tableFilter = prefix != null && prefix.isTableDefinition() ? prefix.getTableName() : null;
             for (String tableName : metacatHiveClient.getAllTables(name.getDatabaseName())) {
                 if (tableFilter == null || tableName.startsWith(tableFilter)) {
                     final QualifiedName qualifiedName =
@@ -452,7 +452,7 @@ public class HiveConnectorTableService implements ConnectorTableService {
                     table.setParameters(parameters);
                 }
                 if (!parameters.containsKey(PARAMETER_EXTERNAL)
-                    || parameters.get(PARAMETER_EXTERNAL).equalsIgnoreCase("FALSE")) {
+                    || "FALSE".equalsIgnoreCase(parameters.get(PARAMETER_EXTERNAL))) {
                     parameters.put(PARAMETER_EXTERNAL, "TRUE");
                     metacatHiveClient.alterTable(oldName.getDatabaseName(), oldName.getTableName(), table);
                 }

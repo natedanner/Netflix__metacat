@@ -139,7 +139,7 @@ public class DefaultOwnerValidationService implements OwnerValidationService {
                 registry.counter(
                     "metacat.table.owner.invalid",
                     "operation", operationName,
-                    "scheme", String.valueOf(context.getScheme()),
+                    "scheme", context.getScheme(),
                     "catalogAndDb", name.getCatalogName() + "_" + name.getDatabaseName()
                 ).increment();
 

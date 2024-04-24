@@ -181,7 +181,7 @@ public class CassandraConnectorTableService extends CassandraService implements 
 
             // Sort
             if (sort != null) {
-                final Comparator<TableInfo> tableComparator = Comparator.comparing((t) -> t.getName().getTableName());
+                final Comparator<TableInfo> tableComparator = Comparator.comparing(t -> t.getName().getTableName());
                 ConnectorUtils.sort(tables, sort, tableComparator);
             }
 

@@ -98,7 +98,7 @@ public final class DruidConverterUtil {
             ? Arrays.asList(loadspecNode.get(DruidConfigConstants.LOADSPEC_KEY).asText().split(","))
             : new ArrayList<>();
         final LoadSpec loadSpec = new LoadSpec(loadspecNode.get(DruidConfigConstants.LOADSPEC_TYPE).asText(),
-            bucket, keys, StringUtils.isEmpty(bucket) || keys.size() == 0
+            bucket, keys, StringUtils.isEmpty(bucket) || keys.isEmpty()
             ? "" : getUriFromKey(bucket, keys.get(0))
         );
         final String dimensions = node.get(DruidConfigConstants.DIMENSIONS).asText();

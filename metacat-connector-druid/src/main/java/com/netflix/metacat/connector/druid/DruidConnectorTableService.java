@@ -101,7 +101,7 @@ public class DruidConnectorTableService implements ConnectorTableService {
     ) {
         try {
             final List<QualifiedName> qualifiedNames = Lists.newArrayList();
-            final String tableFilter = (prefix != null && prefix.isTableDefinition()) ? prefix.getTableName() : null;
+            final String tableFilter = prefix != null && prefix.isTableDefinition() ? prefix.getTableName() : null;
             for (String tableName : this.druidClient.getAllDataSources()) {
                 final QualifiedName qualifiedName =
                     QualifiedName.ofTable(name.getCatalogName(), name.getDatabaseName(), tableName);

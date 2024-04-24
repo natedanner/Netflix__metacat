@@ -171,7 +171,7 @@ public class HiveConnectorDatabaseService implements ConnectorDatabaseService {
     ) {
         try {
             final List<QualifiedName> qualifiedNames = Lists.newArrayList();
-            final String databaseFilter = (prefix != null) ? prefix.getDatabaseName() : null;
+            final String databaseFilter = prefix != null ? prefix.getDatabaseName() : null;
             for (String databaseName : metacatHiveClient.getAllDatabases()) {
                 final QualifiedName qualifiedName = QualifiedName.ofDatabase(name.getCatalogName(), databaseName);
                 if (databaseFilter != null && !databaseName.startsWith(databaseFilter)) {

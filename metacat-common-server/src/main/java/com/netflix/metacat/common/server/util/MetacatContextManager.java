@@ -23,7 +23,7 @@ import com.netflix.metacat.common.MetacatRequestContext;
  * Metacat context manager.
  */
 public final class MetacatContextManager {
-    private static InheritableThreadLocal<MetacatRequestContext> context = new InheritableThreadLocal<>();
+    private static final InheritableThreadLocal<MetacatRequestContext> context = new InheritableThreadLocal<>();
 
     private MetacatContextManager() {
     }

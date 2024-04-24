@@ -309,7 +309,7 @@ public class SNSNotificationServiceImpl implements NotificationService {
             // Send a null payload if we failed to get the latest version
             // of the current table. This will signal users to callback
             //
-            message = new SNSMessage<Void>(
+            message = new SNSMessage<>(
                 UUID.randomUUID().toString(),
                 timestamp,
                 requestId,

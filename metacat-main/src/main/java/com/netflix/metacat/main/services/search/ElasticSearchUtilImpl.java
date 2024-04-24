@@ -236,11 +236,10 @@ public class ElasticSearchUtilImpl implements ElasticSearchUtil {
         try {
             RETRY_ES_PUBLISH.call(() -> {
                 final BulkRequestBuilder bulkRequest = client.prepareBulk();
-                ids.forEach(id -> {
+                ids.forEach(id ->
                     bulkRequest.add(client.prepareUpdate(esIndex, type, id)
                         .setRetryOnConflict(NO_OF_CONFLICT_RETRIES)
-                        .setDoc(metacatJson.toJsonAsBytes(node), XContentType.JSON));
-                });
+                        .setDoc(metacatJson.toJsonAsBytes(node), XContentType.JSON)));
                 final BulkResponse bulkResponse = bulkRequest.execute().actionGet(esBulkCallTimeout);
                 if (bulkResponse.hasFailures()) {
                     for (BulkItemResponse item : bulkResponse.getItems()) {

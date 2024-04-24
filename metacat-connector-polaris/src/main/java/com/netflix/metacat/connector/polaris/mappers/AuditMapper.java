@@ -19,13 +19,12 @@ public class AuditMapper implements
      */
     @Override
     public AuditInfo toInfo(final AuditEntity entity) {
-        final AuditInfo auditInfo = AuditInfo.builder()
+        return AuditInfo.builder()
             .createdBy(entity.getCreatedBy())
             .createdDate(Date.from(entity.getCreatedDate()))
             .lastModifiedBy(entity.getLastModifiedBy())
             .lastModifiedDate(Date.from(entity.getLastModifiedDate()))
             .build();
-        return auditInfo;
     }
 
     /**
@@ -33,12 +32,11 @@ public class AuditMapper implements
      */
     @Override
     public AuditEntity toEntity(final AuditInfo info) {
-        final AuditEntity entity = AuditEntity.builder()
+        return AuditEntity.builder()
             .createdBy(info.getCreatedBy())
             .createdDate(ObjectUtils.defaultIfNull(info.getCreatedDate(), new Date()).toInstant())
             .lastModifiedBy(info.getLastModifiedBy())
             .lastModifiedDate(ObjectUtils.defaultIfNull(info.getLastModifiedDate(), new Date()).toInstant())
             .build();
-        return entity;
     }
 }

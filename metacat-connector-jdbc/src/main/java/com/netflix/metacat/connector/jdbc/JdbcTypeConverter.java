@@ -99,7 +99,7 @@ public abstract class JdbcTypeConverter implements ConnectorTypeConverter {
         final int size = Integer.parseInt(splitType[1]);
         // Check if we're dealing with binary or not
         if (splitType[4] != null) {
-            if (!splitType[4].equals("binary")) {
+            if (!"binary".equals(splitType[4])) {
                 throw new IllegalArgumentException(
                     "Unrecognized extra field in char type: " + splitType[4] + ". Expected 'binary'."
                 );
@@ -118,7 +118,7 @@ public abstract class JdbcTypeConverter implements ConnectorTypeConverter {
         final int size = Integer.parseInt(splitType[1]);
         // Check if we're dealing with binary or not
         if (splitType[4] != null) {
-            if (!splitType[4].equals("binary")) {
+            if (!"binary".equals(splitType[4])) {
                 throw new IllegalArgumentException(
                     "Unrecognized extra field in varchar type: " + splitType[4] + ". Expected 'binary'."
                 );
@@ -130,7 +130,7 @@ public abstract class JdbcTypeConverter implements ConnectorTypeConverter {
     }
 
     protected VarbinaryType toMetacatVarbinaryType(@Nonnull final String[] splitType) {
-        if (!splitType[0].equals("varbinary") && !splitType[0].equals("binary")) {
+        if (!"varbinary".equals(splitType[0]) && !"binary".equals(splitType[0])) {
             // Blob
             return VarbinaryType.createVarbinaryType(Integer.MAX_VALUE);
         }
@@ -142,7 +142,7 @@ public abstract class JdbcTypeConverter implements ConnectorTypeConverter {
     }
 
     protected Type toMetacatTimeType(@Nonnull final String[] splitType) {
-        if (splitType[4] != null && splitType[4].equals("with time zone")) {
+        if ("with time zone".equals(splitType[4])) {
             return BaseType.TIME_WITH_TIME_ZONE;
         } else {
             return BaseType.TIME;
@@ -150,7 +150,7 @@ public abstract class JdbcTypeConverter implements ConnectorTypeConverter {
     }
 
     protected Type toMetacatTimestampType(@Nonnull final String[] splitType) {
-        if (splitType[4] != null && splitType[4].equals("with time zone")) {
+        if ("with time zone".equals(splitType[4])) {
             return BaseType.TIMESTAMP_WITH_TIME_ZONE;
         } else {
             return BaseType.TIMESTAMP;

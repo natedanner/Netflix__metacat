@@ -98,7 +98,7 @@ public class IcebergFilterGenerator extends PartitionParserEval {
             createIcebergExpression(value, startValue, node.not ? Compare.LT : Compare.GTE);
         final Expression compare2 =
             createIcebergExpression(value, endValue, node.not ? Compare.GT : Compare.LTE);
-        return (node.not)
+        return node.not
             ? Expressions.or(compare1, compare2) : Expressions.and(compare1, compare2);
     }
 

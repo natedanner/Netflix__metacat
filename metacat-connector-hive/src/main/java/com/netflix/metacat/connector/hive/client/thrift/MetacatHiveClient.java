@@ -43,7 +43,7 @@ import java.util.Set;
  */
 public class MetacatHiveClient implements IMetacatHiveClient {
     private static final short ALL_RESULTS = -1;
-    private HiveMetastoreClientFactory hiveMetastoreClientFactory;
+    private final HiveMetastoreClientFactory hiveMetastoreClientFactory;
     private final String host;
     private final int port;
 

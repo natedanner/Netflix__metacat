@@ -461,7 +461,7 @@ public class PartitionServiceImpl implements PartitionService {
         final Map<String, List<QualifiedName>> result = Maps.newConcurrentMap();
         final List<ListenableFuture<Void>> futures = Lists.newArrayList();
         final MetacatRequestContext metacatRequestContext = MetacatContextManager.getContext();
-        connectorManager.getPartitionServices().forEach(service -> {
+        connectorManager.getPartitionServices().forEach(service ->
             futures.add(threadServiceManager.getExecutor().submit(() -> {
                 final ConnectorRequestContext connectorRequestContext
                     = converterUtil.toConnectorContext(metacatRequestContext);
@@ -480,8 +480,7 @@ public class PartitionServiceImpl implements PartitionService {
                     log.debug("Partition service doesn't support getPartitionNames. Ignoring.");
                 }
                 return null;
-            }));
-        });
+            })));
         try {
             Futures.allAsList(futures).get(1, TimeUnit.HOURS);
         } catch (Exception e) {

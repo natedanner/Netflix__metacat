@@ -211,7 +211,7 @@ public class MysqlUserMetadataService extends BaseUserMetadataService {
                 Lists.partition(holders, config.getUserMetadataMaxInClauseItems());
             for (List<HasMetadata> hasMetadatas : subLists) {
                 final List<QualifiedName> names = hasMetadatas.stream()
-                    .filter(m -> m instanceof HasDefinitionMetadata)
+                    .filter(HasDefinitionMetadata.class::isInstance)
                     .map(m -> ((HasDefinitionMetadata) m).getDefinitionName())
                     .collect(Collectors.toList());
                 if (!names.isEmpty()) {
@@ -357,10 +357,9 @@ public class MysqlUserMetadataService extends BaseUserMetadataService {
     @Transactional(readOnly = true)
     public Optional<ObjectNode> getDefinitionMetadata(
         @Nonnull final QualifiedName name) {
-        final Optional<ObjectNode> retData = getJsonForKey(
+        return getJsonForKey(
             name.isPartitionDefinition() ? SQL.GET_PARTITION_DEFINITION_METADATA : SQL.GET_DEFINITION_METADATA,
             name.toString());
-        return retData;
     }
 
     @Override

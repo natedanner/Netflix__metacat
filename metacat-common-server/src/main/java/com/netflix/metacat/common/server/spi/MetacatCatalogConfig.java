@@ -81,11 +81,11 @@ public final class MetacatCatalogConfig {
             properties.containsKey(Keys.CATALOG_TYPE) ? properties.remove(Keys.CATALOG_TYPE) : type;
         final List<String> schemaWhitelist = properties.containsKey(Keys.SCHEMA_WHITELIST)
             ? COMMA_LIST_SPLITTER.splitToList(properties.remove(Keys.SCHEMA_WHITELIST))
-            : Collections.EMPTY_LIST;
+            : Collections.emptyList();
 
         final List<String> schemaBlacklist = properties.containsKey(Keys.SCHEMA_BLACKLIST)
             ? COMMA_LIST_SPLITTER.splitToList(properties.remove(Keys.SCHEMA_BLACKLIST))
-            : Collections.EMPTY_LIST;
+            : Collections.emptyList();
 
         final boolean includeViewsWithTables = Boolean.parseBoolean(properties.remove(Keys.INCLUDE_VIEWS_WITH_TABLES));
 
@@ -124,7 +124,7 @@ public final class MetacatCatalogConfig {
      * @return Returns true if catalog is a proxy one.
      */
     public boolean isProxy() {
-        return type.equalsIgnoreCase("proxy");
+        return "proxy".equalsIgnoreCase(type);
     }
 
     /**

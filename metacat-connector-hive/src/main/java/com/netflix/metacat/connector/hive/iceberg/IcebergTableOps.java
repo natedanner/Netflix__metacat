@@ -15,7 +15,7 @@ import org.apache.iceberg.io.FileIO;
  */
 public class IcebergTableOps extends BaseMetastoreTableOperations {
     private String location;
-    private String tableName;
+    private final String tableName;
     private final Configuration conf;
     private final Config config;
     private final IcebergTableOpsProxy icebergTableOpsProxy;

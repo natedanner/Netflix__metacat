@@ -125,7 +125,7 @@ public class JdbcConnectorTableService implements ConnectorTableService {
                         .sourceType(sourceType)
                         .type(this.typeConverter.toMetacatType(sourceType))
                         .comment(columns.getString("REMARKS"))
-                        .isNullable(columns.getString("IS_NULLABLE").equals("YES"))
+                        .isNullable("YES".equals(columns.getString("IS_NULLABLE")))
                         .defaultValue(columns.getString("COLUMN_DEF"));
 
                     if (size != null) {

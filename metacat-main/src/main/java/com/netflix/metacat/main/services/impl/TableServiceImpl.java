@@ -374,7 +374,7 @@ public class TableServiceImpl implements TableService {
 
         if (getTableServiceParameters.isIncludeDefinitionMetadata()) {
             final Optional<ObjectNode> definitionMetadata =
-                (getTableServiceParameters.isDisableOnReadMetadataIntercetor())
+                getTableServiceParameters.isDisableOnReadMetadataIntercetor()
                     ? userMetadataService.getDefinitionMetadata(name)
                     : userMetadataService.getDefinitionMetadataWithInterceptor(name,
                     GetMetadataInterceptorParameters.builder().hasMetadata(tableInternal).build());

@@ -421,7 +421,7 @@ public class IcebergTableHandler {
     }
 
     private Date fromEpochMilliToDate(@Nullable final Long l) {
-        return (l == null) ? null : Date.from(Instant.ofEpochMilli(l));
+        return l == null ? null : Date.from(Instant.ofEpochMilli(l));
     }
 
     //iceberg://<db-name.table-name>/<partition>/snapshot_time=<dateCreated>
@@ -435,7 +435,7 @@ public class IcebergTableHandler {
             databaseName,
             tableName,
             partitionName,
-            (dataTimestampMillis == null) ? partitionName.hashCode()
+            dataTimestampMillis == null ? partitionName.hashCode()
                 : Instant.ofEpochMilli(dataTimestampMillis).getEpochSecond());
     }
 }

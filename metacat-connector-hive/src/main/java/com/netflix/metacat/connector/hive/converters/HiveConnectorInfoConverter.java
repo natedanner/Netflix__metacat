@@ -113,11 +113,11 @@ public class HiveConnectorInfoConverter implements ConnectorInfoConverter<Databa
     @Override
     public Database fromDatabaseInfo(final DatabaseInfo databaseInfo) {
         final QualifiedName databaseName = databaseInfo.getName();
-        final String name = (databaseName == null) ? "" : databaseName.getDatabaseName();
+        final String name = databaseName == null ? "" : databaseName.getDatabaseName();
         //this is a temp hack to resolve the uri = null issue
         // final String dbUri = Strings.isNullOrEmpty(databaseInfo.getUri()) ? "file://temp/" : databaseInfo.getUri();
         final Map<String, String> metadata
-            = (databaseInfo.getMetadata() != null) ? databaseInfo.getMetadata() : Collections.EMPTY_MAP;
+            = databaseInfo.getMetadata() != null ? databaseInfo.getMetadata() : Collections.emptyMap();
         return new Database(name, name, databaseInfo.getUri(), metadata);
     }
 
@@ -130,7 +130,7 @@ public class HiveConnectorInfoConverter implements ConnectorInfoConverter<Databa
     @Override
     public TableInfo toTableInfo(final QualifiedName name, final Table table) {
         final List<FieldSchema> nonPartitionColumns =
-            (table.getSd() != null) ? table.getSd().getCols() : Collections.emptyList();
+            table.getSd() != null ? table.getSd().getCols() : Collections.emptyList();
         // add the data fields to the nonPartitionColumns
         //ignore all exceptions
         try {
@@ -221,18 +221,18 @@ public class HiveConnectorInfoConverter implements ConnectorInfoConverter<Databa
     @SuppressFBWarnings(value = "NP_NULL_PARAM_DEREF", justification = "false positive")
     public Table fromTableInfo(final TableInfo tableInfo) {
         final QualifiedName name = tableInfo.getName();
-        final String tableName = (name != null) ? name.getTableName() : "";
-        final String databaseName = (name != null) ? name.getDatabaseName() : "";
+        final String tableName = name != null ? name.getTableName() : "";
+        final String databaseName = name != null ? name.getDatabaseName() : "";
 
         final StorageInfo storageInfo = tableInfo.getSerde();
-        final String owner = (storageInfo != null && storageInfo.getOwner() != null)
+        final String owner = storageInfo != null && storageInfo.getOwner() != null
             ? storageInfo.getOwner() : "";
 
         final AuditInfo auditInfo = tableInfo.getAudit();
-        final int createTime = (auditInfo != null && auditInfo.getCreatedDate() != null)
+        final int createTime = auditInfo != null && auditInfo.getCreatedDate() != null
             ? dateToEpochSeconds(auditInfo.getCreatedDate()) : 0;
 
-        final Map<String, String> params = (tableInfo.getMetadata() != null)
+        final Map<String, String> params = tableInfo.getMetadata() != null
             ? tableInfo.getMetadata() : new HashMap<>();
 
         final List<FieldInfo> fields = tableInfo.getFields();
@@ -252,8 +252,8 @@ public class HiveConnectorInfoConverter implements ConnectorInfoConverter<Databa
         final StorageDescriptor sd = fromStorageInfo(storageInfo, nonPartitionFields);
 
         final ViewInfo viewInfo = tableInfo.getView();
-        final String tableType = (null != viewInfo
-            && !Strings.isNullOrEmpty(viewInfo.getViewOriginalText()))
+        final String tableType = null != viewInfo
+            && !Strings.isNullOrEmpty(viewInfo.getViewOriginalText())
             ? TableType.VIRTUAL_VIEW.name() : TableType.EXTERNAL_TABLE.name();
 
         return new Table(tableName,
@@ -342,9 +342,9 @@ public class HiveConnectorInfoConverter implements ConnectorInfoConverter<Databa
             sd.getSerdeInfo().setSerializationLib(tableInfo.getSerde().getSerializationLib());
         }
         final AuditInfo auditInfo = partition.getAudit();
-        final int createTime = (notNull(auditInfo) && notNull(auditInfo.getCreatedDate()))
+        final int createTime = notNull(auditInfo) && notNull(auditInfo.getCreatedDate())
             ? dateToEpochSeconds(auditInfo.getCreatedDate()) : 0;
-        final int lastAccessTime = (notNull(auditInfo) && notNull(auditInfo.getLastModifiedDate()))
+        final int lastAccessTime = notNull(auditInfo) && notNull(auditInfo.getLastModifiedDate())
             ? dateToEpochSeconds(auditInfo.getLastModifiedDate()) : 0;
 
         if (null == name) {

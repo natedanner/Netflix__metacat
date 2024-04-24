@@ -34,5 +34,5 @@ public enum HivePrivilege {
     /**OWNERSHIP.*/
     OWNERSHIP,
     /**GRANT.*/
-    GRANT;
+    GRANT
 }

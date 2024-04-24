@@ -166,6 +166,6 @@ class DaoImplSpec extends BaseSpec {
         sourceDao.delete([source])
         tx.commit()
         then:
-        databaseDao.get([database.id]).size() == 0
+        databaseDao.get([database.id]).isEmpty()
     }
 }

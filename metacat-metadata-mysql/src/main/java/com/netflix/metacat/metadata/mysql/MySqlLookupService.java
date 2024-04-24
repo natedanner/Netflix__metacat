@@ -98,7 +98,7 @@ public class MySqlLookupService implements LookupService {
                     lookup.setLastUpdated(rs.getDate("lastUpdated"));
                     lookup.setLastUpdatedBy(rs.getString("lastUpdatedBy"));
                     lookup.setDateCreated(rs.getDate("dateCreated"));
-                    lookup.setValues(includeValues ? getValues(rs.getLong("id")) : Collections.EMPTY_SET);
+                    lookup.setValues(includeValues ? getValues(rs.getLong("id")) : Collections.emptySet());
                     return lookup;
                 });
         } catch (EmptyResultDataAccessException e) {
@@ -121,7 +121,7 @@ public class MySqlLookupService implements LookupService {
     public String getValue(final String name) {
         String result = null;
         final Set<String> values = getValues(name);
-        if (values != null && values.size() > 0) {
+        if (values != null && !values.isEmpty()) {
             result = values.iterator().next();
         }
         return result;

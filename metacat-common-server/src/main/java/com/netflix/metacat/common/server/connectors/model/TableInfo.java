@@ -36,7 +36,7 @@ import java.util.Map;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class TableInfo extends BaseInfo {
+public final class TableInfo extends BaseInfo {
     private List<FieldInfo> fields;
     private StorageInfo serde;
     private ViewInfo view;

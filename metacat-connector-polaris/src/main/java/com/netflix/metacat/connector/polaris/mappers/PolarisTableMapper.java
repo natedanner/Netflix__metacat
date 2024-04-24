@@ -40,7 +40,7 @@ public class PolarisTableMapper implements
     @Override
     public TableInfo toInfo(final PolarisTableEntity entity) {
         final int uriIndex = entity.getMetadataLocation().indexOf(PARAMETER_METADATA_PREFIX);
-        final TableInfo tableInfo = TableInfo.builder()
+        return TableInfo.builder()
             .name(QualifiedName.ofTable(catalogName, entity.getDbName(), entity.getTblName()))
             .metadata(ImmutableMap.of(
                 DirectSqlTable.PARAM_METADATA_LOCATION, entity.getMetadataLocation(),
@@ -58,7 +58,6 @@ public class PolarisTableMapper implements
                     .lastModifiedDate(Date.from(entity.getAudit().getLastModifiedDate()))
                     .build())
             .build();
-        return tableInfo;
     }
 
     /**
@@ -76,11 +75,10 @@ public class PolarisTableMapper implements
             final String message = String.format("No metadata location defined for iceberg table %s", info.getName());
             throw new InvalidMetaException(info.getName(), message, null);
         }
-        final PolarisTableEntity tableEntity = PolarisTableEntity.builder()
+        return PolarisTableEntity.builder()
             .dbName(info.getName().getDatabaseName())
             .tblName(info.getName().getTableName())
             .metadataLocation(location)
             .build();
-        return tableEntity;
     }
 }

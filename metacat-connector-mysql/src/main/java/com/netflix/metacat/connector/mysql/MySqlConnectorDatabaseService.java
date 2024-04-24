@@ -86,7 +86,7 @@ public class MySqlConnectorDatabaseService extends JdbcConnectorDatabaseService 
             while (schemas.next()) {
                 final String schemaName = schemas.getString("TABLE_CAT").toLowerCase(Locale.ENGLISH);
                 // skip internal schemas
-                if (!schemaName.equals("information_schema") && !schemaName.equals("mysql")) {
+                if (!"information_schema".equals(schemaName) && !"mysql".equals(schemaName)) {
                     if (prefix == null) {
                         names.add(QualifiedName.ofDatabase(name.getCatalogName(), schemaName));
                     } else if (StringUtils.isNotBlank(prefix.getDatabaseName())

@@ -200,7 +200,7 @@ public class PolarisConnectorDatabaseService implements ConnectorDatabaseService
                 ConnectorUtils.sort(dbs, sort, Comparator.comparing(p -> p.getDbName()));
             }
             return ConnectorUtils.paginate(dbs, pageable).stream()
-                .map(d -> mapper.toInfo(d)).collect(Collectors.toList());
+                .map(mapper::toInfo).collect(Collectors.toList());
         } catch (Exception exception) {
             throw new ConnectorException(
                 String.format("Failed databases list polaris prefix %s", prefix), exception);

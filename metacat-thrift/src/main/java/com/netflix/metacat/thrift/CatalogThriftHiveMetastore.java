@@ -257,7 +257,7 @@ public class CatalogThriftHiveMetastore extends FacebookBase
      */
     @Override
     public int add_partitions(final List<Partition> newParts) throws TException {
-        if (newParts == null || newParts.size() == 0) {
+        if (newParts == null || newParts.isEmpty()) {
             return 0;
         }
         final String dbName = normalizeIdentifier(newParts.get(0).getDbName());
@@ -1183,7 +1183,7 @@ public class CatalogThriftHiveMetastore extends FacebookBase
             () -> {
                 final String databaseName = normalizeIdentifier(dbName);
                 final String tableName = normalizeIdentifier(tblName);
-                final String partFilter = partition_values_to_partition_filter(databaseName, tableName, partVals);
+                final String partFilter = partitionValuesToPartitionFilter(databaseName, tableName, partVals);
 
                 final Integer maxValues = maxParts > 0 ? Short.toUnsignedInt(maxParts) : null;
                 return partV1.getPartitionKeys(catalogName, databaseName, tableName, partFilter, null, null, null,
@@ -1213,9 +1213,7 @@ public class CatalogThriftHiveMetastore extends FacebookBase
     @Override
     public List<Partition> get_partitions(final String dbName, final String tblName, final short maxParts)
         throws TException {
-        return requestWrapper("get_partitions", new Object[]{dbName, tblName, maxParts}, () -> {
-            return getPartitionsByFilter(dbName, tblName, null, maxParts);
-        });
+        return requestWrapper("get_partitions", new Object[]{dbName, tblName, maxParts}, () -> getPartitionsByFilter(dbName, tblName, null, maxParts));
     }
 
     /**
@@ -1322,7 +1320,7 @@ public class CatalogThriftHiveMetastore extends FacebookBase
             final String databaseName = normalizeIdentifier(dbName);
             final String tableName = normalizeIdentifier(tblName);
             final TableDto tableDto = v1.getTable(catalogName, databaseName, tableName, true, false, false);
-            final String partFilter = partition_values_to_partition_filter(tableDto, partVals);
+            final String partFilter = partitionValuesToPartitionFilter(tableDto, partVals);
 
             final Integer maxValues = maxParts > 0 ? Short.toUnsignedInt(maxParts) : null;
             final GetPartitionsRequestDto dto = new GetPartitionsRequestDto(partFilter, null, true, false);
@@ -1715,7 +1713,7 @@ public class CatalogThriftHiveMetastore extends FacebookBase
     public Map<String, String> partition_name_to_spec(final String partName) throws TException {
         return requestWrapper("partition_name_to_spec", new Object[]{partName}, () -> {
             if (Strings.isNullOrEmpty(partName)) {
-                return (Map<String, String>) Collections.EMPTY_MAP;
+                return (Map<String, String>) Collections.emptyMap();
             }
 
             return Warehouse.makeSpecFromName(partName);
@@ -1730,7 +1728,7 @@ public class CatalogThriftHiveMetastore extends FacebookBase
     public List<String> partition_name_to_vals(final String partName) throws TException {
         return requestWrapper("partition_name_to_vals", new Object[]{partName}, () -> {
             if (Strings.isNullOrEmpty(partName)) {
-                return (List<String>) Collections.EMPTY_LIST;
+                return (List<String>) Collections.emptyList();
             }
 
             final Map<String, String> spec = Warehouse.makeSpecFromName(partName);
@@ -1751,13 +1749,13 @@ public class CatalogThriftHiveMetastore extends FacebookBase
      * @throws MetaException if there are more part_vals specified than partition columns on the table.
      */
     @SuppressWarnings("checkstyle:methodname")
-    String partition_values_to_partition_filter(final String dbName, final String tblName,
+    String partitionValuesToPartitionFilter(final String dbName, final String tblName,
                                                 final List<String> partVals)
         throws MetaException {
         final String databaseName = normalizeIdentifier(dbName);
         final String tableName = normalizeIdentifier(tblName);
         final TableDto tableDto = v1.getTable(catalogName, databaseName, tableName, true, false, false);
-        return partition_values_to_partition_filter(tableDto, partVals);
+        return partitionValuesToPartitionFilter(tableDto, partVals);
     }
 
     /**
@@ -1769,7 +1767,7 @@ public class CatalogThriftHiveMetastore extends FacebookBase
      * @throws MetaException if there are more part_vals specified than partition columns on the table.
      */
     @SuppressWarnings("checkstyle:methodname")
-    String partition_values_to_partition_filter(final TableDto tableDto, final List<String> partVals)
+    String partitionValuesToPartitionFilter(final TableDto tableDto, final List<String> partVals)
         throws MetaException {
         if (partVals.size() > tableDto.getPartition_keys().size()) {
             throw new MetaException("Too many partition values for " + tableDto.getName());

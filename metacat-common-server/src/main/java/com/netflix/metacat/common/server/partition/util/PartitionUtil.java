@@ -57,8 +57,8 @@ public final class PartitionUtil {
                 // Ignore the partition value, if it is null or the hive default. Hive sets the default value if the
                 // value is null/empty string or any other values that cannot be escaped.
                 //
-                if (values[0].equalsIgnoreCase("null")
-                    || values[1].equalsIgnoreCase("null")) {
+                if ("null".equalsIgnoreCase(values[0])
+                    || "null".equalsIgnoreCase(values[1])) {
                     log.debug("Found 'null' string in kvp [{}] skipping.", part);
                 } else if (values[1].equalsIgnoreCase(DEFAULT_PARTITION_NAME)) {
                     parts.put(values[0], null);

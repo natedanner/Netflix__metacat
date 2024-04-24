@@ -167,9 +167,7 @@ public class HiveTypeConverter implements ConnectorTypeConverter {
                 return String.format("decimal(%s,%s)", decimalType.precision(), decimalType.scale());
             case STRUCT:
                 final Types.StructType structType = type.asStructType();
-                final String nameToType = (String) structType.fields().stream().map((f) -> {
-                    return String.format("%s:%s", f.name(), fromIcebergToHiveType(f.type()));
-                }).collect(Collectors.joining(","));
+                final String nameToType = (String) structType.fields().stream().map(f -> String.format("%s:%s", f.name(), fromIcebergToHiveType(f.type()))).collect(Collectors.joining(","));
                 return String.format("struct<%s>", nameToType);
             case LIST:
                 final Types.ListType listType = type.asListType();

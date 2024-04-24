@@ -53,7 +53,7 @@ class MysqlUserMetadataServiceSpec extends BaseSpec {
         mysqlUserMetadataService.saveMetadata(userName, table, false)
         then:
         mysqlUserMetadataService.getDefinitionMetadata(qualifiedName).isPresent()
-        mysqlUserMetadataService.getDefinitionMetadata(qualifiedName).get().findValue('userId').toString().equals("\"amajumdar\"")
+        "\"amajumdar\"".equals(mysqlUserMetadataService.getDefinitionMetadata(qualifiedName).get().findValue('userId').toString())
 
         when:
         mysqlUserMetadataService.deleteMetadata("test", Lists.newArrayList(table))

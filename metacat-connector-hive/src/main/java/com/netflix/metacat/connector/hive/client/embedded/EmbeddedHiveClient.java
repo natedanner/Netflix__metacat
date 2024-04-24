@@ -369,7 +369,7 @@ public class EmbeddedHiveClient implements IMetacatHiveClient {
 
     private <R> R callWrap(final String requestName, final Callable<R> supplier) throws TException {
         final long start = registry.clock().wallTime();
-        final Map<String, String> tags = new HashMap<String, String>();
+        final Map<String, String> tags = new HashMap<>();
         tags.put("request", requestName);
 
         try {

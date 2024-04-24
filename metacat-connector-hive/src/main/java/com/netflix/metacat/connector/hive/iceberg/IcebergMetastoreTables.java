@@ -18,7 +18,7 @@ import java.util.Map;
  * Load an iceberg table from a location.
  */
 public final class IcebergMetastoreTables extends BaseMetastoreCatalog {
-    private IcebergTableOps tableOperations;
+    private final IcebergTableOps tableOperations;
 
     IcebergMetastoreTables(final IcebergTableOps tableOperations) {
         this.tableOperations = tableOperations;

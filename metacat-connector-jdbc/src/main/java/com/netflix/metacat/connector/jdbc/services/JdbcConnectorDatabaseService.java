@@ -162,7 +162,7 @@ public class JdbcConnectorDatabaseService implements ConnectorDatabaseService {
                 while (schemas.next()) {
                     final String schemaName = schemas.getString("TABLE_SCHEM").toLowerCase(Locale.ENGLISH);
                     // skip internal schemas
-                    if (!schemaName.equals("information_schema")) {
+                    if (!"information_schema".equals(schemaName)) {
                         names.add(QualifiedName.ofDatabase(name.getCatalogName(), schemaName));
                     }
                 }
